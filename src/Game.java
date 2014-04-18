@@ -1,17 +1,18 @@
-
-
 /**
  * Created by Tariq on 18.4.2014.
+ * Class Game
  */
 public class Game {
 
     World world;
     Synchronizer synchronizer;
+    
 
-
-
-
-    private void initializeNewGame() {                   // a method only called from within this class
+    /**
+     * Method initializeNewGame
+     * only called from within this class
+     */
+    public void initializeNewGame() {
         synchronizer = new Synchronizer();               // make an instance of synchronizer
         world = new World(synchronizer);                 // make an instance of world and pass it the synchronizer
 
@@ -20,14 +21,24 @@ public class Game {
 
     }
 
-    private void runNewGame(){                          // a method only called from within this class
+    
+    /**
+     * Method runNewGame
+     * only called from within this class
+     */
+    public void runNewGame(){        
         // the method the world uses to run the game
 
     }
 
-    public void runUntilOver(){                         // this runs until game is over
+    
+    /**
+     * Method runUntilOver
+     * runs until game is over
+     */
+    public void runUntilOver(){
                                                         // so every time the user resets the game, it is restarted
-        while(!synchronizer.isGameOver()){              // but when the user dies, then that´s it
+        while(!synchronizer.isGameOver()){              // but when the user dies, then that's it
         initializeNewGame();
         runNewGame();}
 
