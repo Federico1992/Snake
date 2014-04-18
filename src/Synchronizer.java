@@ -1,6 +1,7 @@
 /**
  * Created by Tariq on 18.3.2014.
  */
+
 public class Synchronizer {
 
     private int gameAreaWidth;
@@ -11,9 +12,14 @@ public class Synchronizer {
 
     private boolean snakeStillAlive = true;
     private boolean gameOver = false;
+    private boolean stopGameLoop = false;
 
 
-    public Synchronizer(int width, int height) {
+    public Synchronizer() {
+
+    }
+
+    public void initialize(int width, int height){
         this.gameWorld = new char[width][height];
         this.gameAreaHeight = height;
         this.gameAreaWidth = width;
@@ -65,6 +71,14 @@ public class Synchronizer {
 
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+
+    public boolean isStopGameLoop() {
+        return stopGameLoop;
+    }
+
+    public void setStopGameLoop(boolean stopGameLoop) {
+        this.stopGameLoop = stopGameLoop;
     }
 
 
