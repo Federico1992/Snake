@@ -4,76 +4,92 @@
  * models food, creates food elements and drops them in a valid space.
  */
 public class Food{
-
 	
-	
-			// ATTRIBUTS
+			// ATTRIBUTES
 	
 	/** Synchronizer*/
     private Synchronizer synchronizer;
 
-    /** Eat object */
-    private final Eating eat = new Eating();
-
     /** x of the point where will be placed the food */
-    private int x;
+    private int abscissa ;
 
     /** y of the point where will be placed the food*/
-    private int y;
-
-    /** Food random generated (look constructor) */
+    private int ordinate;
+    
+    /** Food element generated, different type possible */
     private char foodElement;
 
-    /** count to avoid to have more than 3 same elements on the bounce*/
-    private int count = 0;
-
-    /** element who was before the new object random generated*/ 
-    private int beforeElement = -1;
+    /** The value by default of FoodElement generated, 'm' for "mouse" */
+    public final static char FOOD_ELEMENT_DEFAULT = 'm';
 
     
     
-    			// CONSTRUCTOR 
+    			// CONSTRUCTORS 
     
     /**
-    * Constructor with a param
-    * where we verify that no more than 3 same elements will be placed on the bounce 
-    * and we take a random food in the EAT table
-    * @param synchronizer
-    */
-    public Food(Synchronizer synchronizer){
-       this.synchronizer = synchronizer;
+     * Empty constructor
+     * Place the food in the middle of the area by default
+     */
+    public Food(){
+       this.synchronizer = new Synchronizer();
+       this.abscissa = (int)Math.random()*synchronizer.getGameAreaWidth();
+       this.ordinate = (int)Math.random()*synchronizer.getGameAreaHeight();
+       this.foodElement = FOOD_ELEMENT_DEFAULT;
+    }
+    
 
-       int rand1 = (int)Math.random()*10;
-
-       if (rand1 == beforeElement)
-       {
-       		if (count < 3)
-       		{
-       			this.foodElement = eat.getTable()[rand1];
-       			this.count++;
-       			this.beforeElement = rand1;
-       		} 
-       		else
-       		{
-       			int rand2 = rand1;
-       			this.count = 0;
-
-       			while (rand2 == rand1)
-       			{
-       				rand2 = (int)Math.random()*10;
-       			}
-
-       			this.foodElement = eat.getTable()[rand2];
-       			this.count++;
-       			this.beforeElement = rand2;
-        	}
-       }
-       else
-       {
-       		this.foodElement = eat.getTable()[rand1];
-       		this.count++;
-       		this.beforeElement = rand1;
-       }
+    /** 
+     * Constructor with 2 param
+     * Initialize the place with the food given
+     * @param abs , abscissa given
+     * @param ord , ordinate given
+     */
+    public Food(int abs, int ord){
+    	this.synchronizer = new Synchronizer();
+    	if (abs<0)
+    		abs = 0;
+    	this.abscissa = abs;
+    	if (ord <0)
+    		ord = 0;
+    	this.ordinate = ord;
+    	this.foodElement = FOOD_ELEMENT_DEFAULT;
+    }
+    
+    
+    /**
+     * Constructor with 1 param
+     * Initialize the food element with the one given
+     * @param elem , food given
+     */
+    public Food(char elem){
+    	this.synchronizer = new Synchronizer();
+        this.abscissa = (int)Math.random()*synchronizer.getGameAreaWidth();
+        this.ordinate = (int)Math.random()*synchronizer.getGameAreaHeight();
+        if (  (elem == '\0') || (elem == ' ') )
+        	elem = FOOD_ELEMENT_DEFAULT;
+        this.foodElement = elem;
+    }
+    
+    
+    /**
+     * Constructor with 3 param
+     * Initialize the food on a given place
+     * And the food element with the one given
+     * @param abs
+     * @param ord
+     * @param elem
+     */
+    public Food (int abs, int ord, char elem){
+    	this.synchronizer = new Synchronizer();
+    	if (abs<0)
+    		abs = (int)Math.random()*synchronizer.getGameAreaWidth();
+    	this.abscissa = abs;
+    	if (ord <0)
+    		ord = (int)Math.random()*synchronizer.getGameAreaHeight();
+    	this.ordinate = ord;
+    	  if (  (elem == '\0') || (elem == ' ') )
+          	elem = FOOD_ELEMENT_DEFAULT;
+          this.foodElement = elem;
     }
     
     
@@ -88,37 +104,82 @@ public class Food{
     * else -> check for another
     */
     public void placeFood(){
-    	int X = (int)Math.random()*synchronizer.getGameAreaWidth();
-    	int Y = (int)Math.random()*synchronizer.getGameAreaHeight();
-    	boolean empty = false;
-
-    	while (empty == false) {
-    		if (synchronizer.getGameWorld()[X][Y]=='\0') {
-    			synchronizer.getGameWorld()[X][Y] = this.foodElement;
-    			empty = true;
+    	boolean isEmpty = true;
+    	while (isEmpty) {
+    		if (synchronizer.getGameWorld()[this.abscissa][this.ordinate]=='\0') {
+    			synchronizer.getGameWorld()[this.abscissa][this.ordinate] = this.foodElement;
+    			isEmpty = false;
     		}
     		else {
-    			X = (int)Math.random()*synchronizer.getGameAreaWidth();
-    			Y = (int)Math.random()*synchronizer.getGameAreaHeight();
+    			int x = (int)Math.random()*synchronizer.getGameAreaWidth();
+    			int y = (int)Math.random()*synchronizer.getGameAreaHeight();
+    			this.setX(x); 
+    			this.setY(y);
     		}
     	}
-
-      this.x = X;
-      this.y = Y;
     }
 
+    
+    
     /**
-    * @return X
-    */
+     * Getter of the abscissa
+     * @return X
+     */
     public int getX(){
-    	return this.x;
+    	return this.abscissa;
     }
-
+    
     /**
-    * @return Y
-    */
+     * Getter of the ordinate
+     * @return Y
+     */
     public int getY(){
-    	return this.y;
+    	return this.ordinate;
+    }
+    
+    /**
+     * Getter of the foodElement
+     * @return
+     */
+    public char getFoodElement(){
+    	return this.foodElement;
+    }
+    
+    public Synchronizer getSynchronizer(){
+    	return this.getSynchronizer();
+    }
+    
+    
+    /**
+     * Setter of the abscissa
+     * @param abs
+     */
+    public void setX(int abs){
+    	if (abs >= 0)
+    		this.abscissa = abs;
     }
 
+    
+    /**
+     * Setter of the ordinate
+     * @param ord
+     */
+    public void setY(int ord){
+    	if (ord >= 0)
+    		this.ordinate = ord;
+    }
+    
+    
+    /**
+     * Setter of the foodElement
+	 * Change the food element by the one given
+     * @param elem
+     */
+    public void setFoodElement(char elem){
+    	if (  !(elem == '\0' || elem == ' ') )
+    		this.foodElement = elem;
+    }
+   
+    
+    
 }

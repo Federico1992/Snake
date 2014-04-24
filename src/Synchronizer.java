@@ -21,16 +21,13 @@ public class Synchronizer {
     /**The last key the player pressed */
     private char lastButtonPressed;
 
-    /**If the snake is alive */
-    private boolean snakeStillAlive = true;
-    
     /**If the game is over */
-    private boolean gameOver = false;
+    private boolean gameOver;
     
     /**If the player want or not restart the game */
-    private boolean stopGameLoop = false;
+    private boolean stopGameLoop;
 
-    
+    public final static int LENGTH = 80;
     
     
     		// CONSTRUCTOR
@@ -39,7 +36,25 @@ public class Synchronizer {
      * Empty constructor
      */
     public Synchronizer() {
-
+    	this.gameWorld = new char[LENGTH][LENGTH];
+        this.gameAreaHeight = LENGTH;
+        this.gameAreaWidth = LENGTH;
+        this.gameOver = false;
+        this.stopGameLoop = false;
+    }
+    
+    /**
+     * 
+     * @param length
+     */
+    public Synchronizer(int length){
+    	if (length < 10)
+    		length = LENGTH;
+    	this.gameWorld = new char [length][length];
+    	 this.gameAreaHeight = length;
+         this.gameAreaWidth = length;
+         this.gameOver = false;
+         this.stopGameLoop = false;
     }
 
   
@@ -98,26 +113,6 @@ public class Synchronizer {
         this.lastButtonPressed = lastButtonPressed;
     }
 
-    
-    /**
-     * Method isSnakeStillAlive 
-     * @return snakeStillAlive
-     * true if the snake is already alive
-     */
-    public boolean isSnakeStillAlive() {
-        return this.snakeStillAlive;
-    }
-
-    
-    /**
-     * Method setSnakeStillAlive
-     * changes the situation of the snake
-     * if it's alive or not
-     * @param snakeStillAlive
-     */
-    public void setSnakeStillAlive(boolean snakeStillAlive) {
-        this.snakeStillAlive = snakeStillAlive;
-    }
 
     
     /**
@@ -168,16 +163,10 @@ public class Synchronizer {
     public boolean isGameOver() {
         return this.gameOver;
     }
-
     
-    /**
-     * Method setGameOver
-     * changes the situation of the game
-     * if it's over or not
-     * @param gameOver
-     */
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
+    
+    public void TheGameIsOver(){
+    	this.gameOver = true;
     }
 
     
