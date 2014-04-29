@@ -40,40 +40,27 @@ public class TestFood {
 		assertEquals('v', f.getFoodElement());
 	}
 	
-	
-	
-	
-	/*Test placeFood :
-		Food f = new Food();
-	vérifié que la place f.synchronizer.getGame[f.getX()][f.getY()] est vide
-	faire un place food
-	vérifié que la place f. bla bla est occupé
-
-	(penser a garder f.getX et f.getY dans des variables tmp au cas ou)*/
-	
-	
 	@Test
 	public void TestPlaceFoodPossible(){
 		Food f = new Food();
 		int x = f.getX();
 		int y = f.getY();
 		
-		boolean isEmpty = ( f.getSynchronizer().getGameWorld()[x][y] == '\0' );
+		boolean isEmpty = f.getSynchronizer().isEmpty(x, y);
 		
-		if (isEmpty){
-			assertEquals(isEmpty, true);
-			f.placeFood();
-			isEmpty = ( f.getSynchronizer().getGameWorld()[x][y] == '\0' );
-			assertEquals(isEmpty, false);
-			char obtenu = f.getSynchronizer().getGameWorld()[x][y];
-			assertEquals(f.getFoodElement(), obtenu);
+		if (isEmpty){														// if the square isEmpty
+			f.placeFood();														// we can use placeFood() with the coordinates (x, y)
+			isEmpty = f.getSynchronizer().isEmpty(x, y);						// update of the boolean isEmpty, value FALSE (if the method works)
+			assertEquals(isEmpty, false);										// check if (!isEmpty)
+			char obtained = f.getSynchronizer().getGameWorld()[x][y];			// get the char obtained at the coordinates (x,y)
+			assertEquals(f.getFoodElement(), obtained);							// check if the char obtained is the same as the food created
 		}
-		else {
-			//assertEquals(isEmpty, false);
-			f.placeFood();
-			x = f.getX();
-			y = f.getY();
-			isEmpty = ( f.getSynchronizer().getGameWorld()[x][y] == '\0' );
+		
+		else {																// else
+			f.placeFood();														// we execute placeFood() 
+			x = f.getX();														// we get the coordinates in variables
+			y = f.getY();														// because they changed
+			isEmpty = f.getSynchronizer().isEmpty(x, y);
 			assertEquals(isEmpty, false);
 			char obtenu = f.getSynchronizer().getGameWorld()[x][y];
 			assertEquals(f.getFoodElement(), obtenu);

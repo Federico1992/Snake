@@ -95,6 +95,7 @@ public class Food{
     
     
     		//METHODS
+    
 
     /**
     * Method placeFood
@@ -104,16 +105,16 @@ public class Food{
     * else -> check for another
     */
     public void placeFood(){
-    	boolean isEmpty = true;
-    	while (isEmpty) {
-    		if (synchronizer.getGameWorld()[this.abscissa][this.ordinate]=='\0') {
-    			synchronizer.getGameWorld()[this.abscissa][this.ordinate] = this.foodElement;
-    			isEmpty = false;
-    		}
-    		else {
-    			int x = (int)Math.random()*synchronizer.getGameAreaWidth();
-    			int y = (int)Math.random()*synchronizer.getGameAreaHeight();
-    			this.setX(x); 
+    	boolean placeFood = false;
+    	while (!placeFood) {
+    		if (this.synchronizer.isEmpty(this.abscissa, this.ordinate)) {						// if the square is empty
+    			synchronizer.getGameWorld()[this.abscissa][this.ordinate] = this.foodElement;		// we can place the food in this square
+    			placeFood = true;																	// the food is placed
+    		}		
+    		else {																				// else
+    			int x = (int)Math.random()*synchronizer.getGameAreaWidth();							// we have to set the coordinates
+    			int y = (int)Math.random()*synchronizer.getGameAreaHeight();						// of the food
+    			this.setX(x); 																		// to place it in an empty square
     			this.setY(y);
     		}
     	}
@@ -146,7 +147,7 @@ public class Food{
     }
     
     public Synchronizer getSynchronizer(){
-    	return this.getSynchronizer();
+    	return this.synchronizer;
     }
     
     

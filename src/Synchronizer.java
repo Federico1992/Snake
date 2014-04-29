@@ -190,5 +190,16 @@ public class Synchronizer {
         this.stopGameLoop = stopGameLoop;
     }
 
+    
+    /**
+     * Method isEmpty
+     * return a boolean
+     * @param x
+     * @param y
+     * @return true if the square [x][y] of gameWorld is empty
+     */
+    public boolean isEmpty (int x, int y){
+    	return (this.gameWorld[x][y] == '\0');
+    }
 
 }

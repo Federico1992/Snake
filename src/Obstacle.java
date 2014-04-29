@@ -104,22 +104,28 @@ public class Obstacle {
 		}
 	}
 	
+	
 	/**
 	 * Method levelMedium
 	 * Used to create the obstacles in the area
 	 * for a medium level
 	 */
 	public void levelMedium(){
-		// one or two obstacles
-		int x = (int)Math.random()*synchronizer.getGameAreaWidth();
-		int y = (int)Math.random()*synchronizer.getGameAreaHeight();
+		// we are going to build one obstacle
+		// just an horizontal wall 
+		// this wall will start at the coordinates (x, y) :
+		int x = (int)Math.random()*this.synchronizer.getGameAreaWidth();
+		int y = (int)Math.random()*this.synchronizer.getGameAreaHeight();
 		
-		for (int i = 0 ; i < (this.synchronizer.getGameWorld().length)/6 ; i++ ){
-			//Horizontal line, length : 1/6 of the length of the area
-			this.synchronizer.getGameWorld()[x+i][y] = WALL;
-			
-			// Warning ! Obstacle can't be placed on this.synchronizer.getGameWorld().[length][y]  
-			//Check that we're not out of area's bounds
+		int i = 0;	// we have to check if (x+i) is in the array
+		
+		// while the obstacle is different to (1/6) of the larger
+		// an while x is not out of bounds
+		while (i<(this.synchronizer.getGameWorld().length/6) && x<this.synchronizer.getGameWorld().length){
+			// we build an horizontal wall 
+			this.synchronizer.getGameWorld()[x][y] = WALL;
+			x += i;
+			i++;
 		}
 		
 	}
@@ -130,7 +136,67 @@ public class Obstacle {
 	 * for a hard level
 	 */
 	public void levelHard(){
-		// two  or three obstacles
+		// two obstacle horizontal and one vertical
+		// we have to define 2 variables for the start of each obstacle
+		// to check if the coordinates are different at the beginning
+
+		int x1 = (int)Math.random()*this.synchronizer.getGameAreaWidth();
+		int y1 = (int)Math.random()*this.synchronizer.getGameAreaHeight();
+		
+		int x2 = (int)Math.random()*this.synchronizer.getGameAreaWidth();
+		int y2 = (int)Math.random()*this.synchronizer.getGameAreaHeight();
+		// the 2 horizontal obstacles musn't be placed on the same ordinate
+		while (x2== x1)
+			x2 = (int)Math.random()*this.synchronizer.getGameAreaWidth();
+		while (y2==y1)
+			y2 = (int)Math.random()*this.synchronizer.getGameAreaHeight();
+		
+		int x3 = (int)Math.random()*this.synchronizer.getGameAreaWidth();
+		int y3 = (int)Math.random()*this.synchronizer.getGameAreaHeight();
+		// the vertical obstacle should be in another way that the horizontal obstacles
+		while ( (y3==y1) || (y3 == y2) )
+			y3 = (int)Math.random()*this.synchronizer.getGameAreaHeight();
+		while ( (x3==x1) || (x3 == x2) )
+			x3 = (int)Math.random()*this.synchronizer.getGameAreaWidth();
+		
+		
+		
+		int i = 0;	// we have to check if (x+i) is in the array
+
+		// while the obstacle is different to (1/6) of the larger
+		// an while x is not out of bounds
+		while (i<(this.synchronizer.getGameWorld().length/6) && x1<this.synchronizer.getGameWorld().length){
+			// we build an horizontal wall 
+			this.synchronizer.getGameWorld()[x1][y1] = WALL;
+			x1 += i;
+			i++;
+		}
+		
+		
+		i = 0;
+		
+		// while the obstacle is different to (1/6) of the larger
+		// an while x is not out of bounds
+		while (i<(this.synchronizer.getGameWorld().length/6) && x2<this.synchronizer.getGameWorld().length){
+			// we build an horizontal wall 
+			this.synchronizer.getGameWorld()[x2][y2] = WALL;
+			x2 += i;
+			i++;
+		}
+		
+		
+		
+		i = 0;
+		
+		while (i<(this.synchronizer.getGameWorld()[x3].length/6) && y3<this.synchronizer.getGameWorld()[x3].length){
+			// we build a vertical wall 
+			this.synchronizer.getGameWorld()[x3][y3] = WALL;
+			x3 += i;
+			i++;
+		}
+		
+		
+		
 	}
 	
 	/**
