@@ -1,75 +1,130 @@
 /**
- * Created by UK - Cheri, Kimberly and Ryan
+ * Created by UK
+ * Class Snake
+ * In charge of snake itself, it's movement and growth
  */
-public class Snake 
+
+/**Allows complier to know about library class*/
+import java.util.ArrayList; 
+
+public class Snake
 {
-
-    private Synchronizer synchronizer;
-    private int exampleCounter;
-    
-    //instance variable for placing snake
-    private char //note to self - finish this
-    
-    //positions the snake
-    private int x;
-    //positions the snake
-    private int y;
-    
-    
-    //
-
-    public Snake(Synchronizer synchronizer) 
+            /**Synchronizer*/
+        private Synchronizer synchronizer;
+        private int exampleCounter;
+        
+         public Snake(Synchronizer synchronizer) 
     {
         this.synchronizer = synchronizer;
     }
-
-
+    
     public void exampleUpdateFunction() 
-    {
-      // if counter greater than five
-      if (exampleCounter > 5) 
-      {                          
-                System.out.println(" Snake.exampleUpdateFunction says: Yes! I'm finally going to kill that snake!");
-                synchronizer.setSnakeStillAlive(false);                                                                 
-            
-            else {
-                    System.out.println(" Snake.exampleUpdateFunction says:  I'll let the snake live... for now.");
-                 }
-    
-                exampleCounter++;
-    
-            try {
-                    Thread.sleep(1000);
-                }       
+        {
+          // if counter greater than five
+          if (exampleCounter > 5) 
+          {                          
+                    System.out.println(" Snake.exampleUpdateFunction says: Yes! I'm finally going to kill that snake!");
+                    synchronizer.setSnakeStillAlive(false);                                                                 
                 
-            catch (InterruptedException e) 
-            {
-                e.printStackTrace();
-            }
-      }
-   }
-   
-    public void placeSnake(){
-        //fix this tonight
-    	int X = (int)Math.random()*synchronizer.getGameAreaWidth();
-    	int Y = (int)Math.random()*synchronizer.getGameAreaHeight();
-    	boolean empty = false;
+                else {
+                        System.out.println(" Snake.exampleUpdateFunction says:  I'll let the snake live... for now.");
+                     }
+        
+                    exampleCounter++;
+        
+                try {
+                        Thread.sleep(1000);
+                    }       
+                    
+                catch (InterruptedException e) 
+                {
+                    e.printStackTrace();
+                }
+          }
+       }
+    
+            /**ARRAYLIST - CREATING THE SNAKE*/
+            
+      /**Delcaring instant variables arrayList and ArrayList<Character>*/
+      private Character arrayList; 
+      private ArrayList<Character> s;
+          
+     /**The contructor for the snake class, creates a new ArrayList*/
+     public Snake(Character arrayList) 
+     { 
+       this.arrayList = arrayList;
+       s = new ArrayList<Character>();
+     }
+     
+     /**the getS method, returns the value for s that will be used in the add method*/
+     public ArrayList<Character> getS() 
+     { 
+         return s; 
+     } 
+     
+     /** getArrayList method, returns the position of the value in the list*/
+     public Character getArrayList()
+     {
+        return arrayList;
+     }
+     
+     /**adds the value of the snake, for example S or O*/
+      public void addChar(Character newChar) 
+     { 
+         s.add('S'); 
+         s.add('O');
+     } 
+     
+            /**PLACING THE SNAKE*/
+            
+    /** x of the point where will be placed the snake */
+    private int abscissa ;
 
-    	while (empty == false) {
-    		if (synchronizer.getGameWorld()[X][Y]=='\0') {
-    			synchronizer.getGameWorld()[X][Y] = this.//insert array name from above later;
-    			empty = true;
-    		}
-    		else {
-    			X = (int)Math.random()*synchronizer.getGameAreaWidth();
-    			Y = (int)Math.random()*synchronizer.getGameAreaHeight();
-    		}
-    	}
-
-      this.x = X;
-      this.y = Y;
+    /** y of the point where will be placed the snake*/
+    private int ordinate;
+    
+    /** The default value for placing the Arraylist - snake into the game. 'S' and 'O' */
+    public final static char ARRAY_LIST_DEFAULT = 's';
+    
+    /**Place the Snake in the middle of the area by default*/
+    public Snake(){
+       this.synchronizer = new Synchronizer();
+       this.abscissa = (int)0*synchronizer.getGameAreaWidth();
+       this.ordinate = (int)0*synchronizer.getGameAreaHeight();
+       this.arrayList = ARRAY_LIST_DEFAULT;
     }
-   
-   
-}
+    
+    /**sets the values for x and y to be in the centre of the game world*/
+    public void placeSnake(){
+        int x = (int)0*synchronizer.getGameAreaWidth();							
+    	int y = (int)0*synchronizer.getGameAreaHeight();						
+    	this.setX(x); 																		
+    	this.setY(y);
+    		}
+    	
+    /**Gets the x value, abscissa*/
+    public int getX(){
+    	return this.abscissa;
+    }
+    
+    /**Gets the y value, ordinate*/
+    public int getY(){
+    	return this.ordinate;
+    }
+    
+    /**Set the x value, abscissa*/
+      public void setX(int abs){
+    	if (abs >= 0)
+    		this.abscissa = abs;
+    }
 
+    /**Set the y value, ordinate*/
+    public void setY(int ord){
+    	if (ord >= 0)
+    		this.ordinate = ord;
+    }
+    
+            /**MOVEMENT OF SNAKE*/
+            
+     
+}
