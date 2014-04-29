@@ -29,7 +29,9 @@ public class Control{
 		}
 
 	/** 
-	 * This method use a Scanner and asks the player its input, but he must push enter to confirm his comand and for this reason this version isn't dynamic.
+	 * This method use a Scanner and asks the player its input, but he must push enter to confirm 
+	 * his comand and for this reason this version isn't dynamic.
+	 * This also update the lastButtonPressed parameter of Synchronizer!
 	 * @return an array of Command
          */ 
 	public static Command[] updateDirection(){
