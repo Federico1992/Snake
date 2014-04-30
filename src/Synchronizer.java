@@ -99,7 +99,7 @@ public class Synchronizer {
      * @return lastButtonPressed
      * the last button pressed by the player
      */
-    public void getLastButtonPressed() {
+    public Command[] getLastButtonPressed() {
         return this.lastButtonPressed;
     }
 
