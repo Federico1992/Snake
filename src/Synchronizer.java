@@ -19,7 +19,7 @@ public class Synchronizer {
     private char[][] gameWorld;
     
     /**The last key the player pressed */
-    private char lastButtonPressed;
+    private Command[] lastButtonPressed;
 
     /**If the game is over */
     private boolean gameOver;
@@ -99,7 +99,7 @@ public class Synchronizer {
      * @return lastButtonPressed
      * the last button pressed by the player
      */
-    public char getLastButtonPressed() {
+    public void getLastButtonPressed() {
         return this.lastButtonPressed;
     }
 
@@ -109,7 +109,7 @@ public class Synchronizer {
      * which changes the last button pressed by the player by another one
      * @param lastButtonPressed
      */
-    public void setLastButtonPressed(char lastButtonPressed) {
+    public void setLastButtonPressed(Command[] lastButtonPressed) {
         this.lastButtonPressed = lastButtonPressed;
     }
 
